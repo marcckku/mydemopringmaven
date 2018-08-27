@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    
+    
+    <!-- location of log4j config file SE SI TROVA SUL CLASSPATH ( CIOè SOTTO WEB-INF ) ALLORA NON NECESSARIO
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j.properties</param-value>
+    </context-param>-->
+
+    <!-- applies log4j configuration 
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener> -->
+    
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/dispatcher-mvc-servlet.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>dispatcher-mvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher-mvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+  
+    
+    
+    <!--  servlet collegamento fatto il 10/05/2018    -->
+    <context-param>
+        <description>Location to store uploaded file</description>
+        <param-name>file-upload</param-name>
+        <param-value>
+            C:\Users\Utente\Music\tmp\
+        </param-value>
+    </context-param>
+    
+    <!--
+    <servlet>
+        <description></description>
+        <display-name>ControllerPagineBootstrap</display-name>
+        <servlet-name>ControllerPagineBootstrap</servlet-name>
+        <servlet-class>com.bootstrap.controller.ControllerPagineBootstrap</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ControllerPagineBootstrap</servlet-name>
+        <url-pattern>/controllerPagineBootstrapMapping</url-pattern>
+    </servlet-mapping>
+  
+      -->
+ 
+    
+    
+    <!--    
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    -->
+  
+    
+</web-app>

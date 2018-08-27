@@ -1,0 +1,48 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17-gen-2018, 17.47.43
+    Author     : Marco
+
+
+Il componente menù utilizza collapse.js il plugin di bootstrap incluso in bootstrap.min.js; il button “toggle navigation” è collegato al menù principale e lo fa funzionare grazie alla sintassi dichiarativa data-target=”#mainMenu” con la quale viene indicato la seconda sezione del menù.
+
+PROBLEMA: il menù ha troppe voci per essere visualizzato su una sola riga nelle viste medium e small.
+
+SOLUZIONE: la soluzione più elegante è modificare il comportamento del modulo e fare in modo 
+che collassi già in modalità small o addirittura medium. Sconsiglio modificare direttamente 
+il framework, l’approccio migliore e ricompilare le sorgenti LESS modificando @navbarCollapseWidth 
+(purtroppo il wizard online non prevede la modifica diretta di tale variabile). 
+Una soluzione alternativa è scrivere una media query che sovrascriva il comportamento di default;
+quello riportato ad esempio attiva il menù a tendina in modalità small:
+*/
+
+@media (max-width: 990px) {
+    .navbar-header_{
+        float: none;
+    }
+    .navbar-toggle_ {
+        display: block;
+    }
+    .navbar-collapse_ {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse_ {
+        display: none!important;
+    }
+    .navbar-nav_ {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav_>li {
+        float: none;
+    }
+    .navbar-nav_>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}

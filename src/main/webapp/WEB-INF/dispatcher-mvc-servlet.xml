@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+>
+    
+    
+    <!-- Specifying base package of the Components like Controller, Service, DAO -->
+    <context:component-scan base-package="com.bootstrap" />
+    
+    
+    <!--risorse statiche come css,html,bootstrap ecc.. -->
+    <mvc:resources mapping="/resources/**" location="/resources/theme1" /> 
+    
+    <!--MAVEN: boostrap resources   -->
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/> 
+    
+    
+    <!--  link : http://websystique.com/springmvc/spring-mvc-4-file-upload-example-using-commons-fileupload/ 
+    Highlight of this Configuration class is CommonsMultipartResolver Bean. It’s a MultipartResolver implementation 
+    for Apache Commons FileUpload. You can set properties like max filesize, size Threshold, headerEncoding etc. 
+    In our case we have just specified the max allowed file size in bytes (set to 5 MB). 
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+        <!-- one of the several properties available; the maximum file size in bytes 
+        <property name="maxUploadSizePerFile" value="5242880"/>
+    </bean>-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1099511627776" /> <!-- 268435456=256 MB, 1099511627776= 2^40 bytes = 1TB -->
+    </bean>
+     
+        
+    <mvc:annotation-driven />
+        
+    <!-- Se si desidera mantenere le risorse statiche all'esterno delle cartelle WEB-INF nella director
+    principale Web e si desidera che il contenitore gestisca le richieste di risorse statiche, 
+    è necessario aggiungerlo al file di contesto dell'applicazione -->
+    <mvc:default-servlet-handler />
+        
+    <!-- View Resolver    -->
+    <bean
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--     <property  name="prefix" value="/WEB-INF/jsp/" />-->
+        <property name="prefix" value="/WEB-INF/jsp/pagine/" />
+        <property  name="suffix" value=".jsp" />
+           
+    </bean>
+        
+   <!--  **********placeholder 1mo modo **************  -->
+    <!-- <bean id="propertyConfigurer"  -->
+    <bean id="MARCO_PAVON" 
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/hibernate.jdbc.properties" />    
+    
+    
+     <!-- Inserito il 11/05/2018 :  riferitosi al file application.properties - Add driver MySQL
+        Getting Database properties, va a prendere le proprieta del file 
+        application.properties che si trova in Other Sources nella cartella di default. 
+        Attenzione nel mettere il medesimo file in un package (Non default) inserire il path 
+        completo meglio quello di default. -->
+         <!--  **********placeholder 2do modo **************  
+    <context:property-placeholder location="classpath:application.properties" />-->
+  
+    
+    <!-- Aggiunti il 09/05/2018 NON SI TROVA org.apache.commons.dbcp.BasicDataSource = ERRORE
+         org.springframework.jdbc.datasource.DriverManagerDataSource 
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+          p:driverClassName="${jdbc.driverClassName}"
+          p:url="${jdbc.databaseurl}" 
+          p:username="${jdbc.username}"
+          p:password="${jdbc.password}" />
+      -->
+       <!-- USIAMO INVECE org.springframework.jdbc.datasource.DriverManagerDataSource 
+          <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+                      >
+              <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+              <beans:property name="url"
+                                value="jdbc:mysql://localhost:3306/testdb" />
+              <beans:property name="username" value="pankaj" />
+              <beans:property name="password" value="pankaj123" />
+          </beans:bean>
+     -->
+   <!--     
+    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+                destroy-method="close"> 
+        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <beans:property name="url"
+                        value="jdbc:mysql://127.0.0.1:3306/test" />
+        <beans:property name="username" value="amministrattoreMP" />
+        <beans:property name="password" value="root" />
+    </beans:bean>
+     -->
+
+    
+</beans>
