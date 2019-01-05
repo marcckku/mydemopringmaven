@@ -2,7 +2,7 @@
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 <!-- questo è soltanto un esempio, al posto di creare un file di properties, è meglio usare un file.xml per la Config del log4j-->
-	<!-- Appenders -->
+	<!-- Appenders - Below is a basic XML configuration file for log4j in XML format:-->
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -17,6 +17,10 @@
         <logger name="com.mongodb.util">
 		<level value="info" />
 	</logger>
+         <logger name="com.bootstrap.mongodata">
+		<level value="info" />
+	</logger>
+        
         
 	<logger name="com.bootstrap.controller">
 		<level value="error" />
@@ -44,7 +48,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="info" />
 		<appender-ref ref="console" />
 	</root>
         

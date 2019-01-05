@@ -5,13 +5,15 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.5.xsd"
 >
     
     
@@ -40,28 +42,50 @@
     </bean>
      
         
-    <mvc:annotation-driven />
+    <!--<mvc:annotation-driven />-->
         
     <!-- Se si desidera mantenere le risorse statiche all'esterno delle cartelle WEB-INF nella director
     principale Web e si desidera che il contenitore gestisca le richieste di risorse statiche, 
     è necessario aggiungerlo al file di contesto dell'applicazione -->
     <mvc:default-servlet-handler />
-        
+      
+    
+    <!--aggiunto 17/09/2018 da provare ancora -->
+    <mvc:annotation-driven> 
+        <mvc:async-support default-timeout="30000" task-executor="taskExecutor"/>
+    </mvc:annotation-driven>
+    <!-- modify the parameters of thread pool -->
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5"/>
+        <property name="maxPoolSize" value="50"/>
+        <property name="queueCapacity" value="10"/>
+        <property name="keepAliveSeconds" value="120"/>
+    </bean>
+    
+    
+    
+    
     <!-- View Resolver    -->
+    <!-- 
+        - Con tecnologia di visualizzazione JSP, è possibile utilizzare { UrlBasedViewResolver } -> si rompe !!. 
+        Questo risolutore di viste converte un nome di vista in un URL e passa la richiesta al RequestDispatcher 
+        per eseguire il rendering della vista. 
+        - Default { InternalResourceViewResolver } non risolve però viste in formato Excel funziona!!
+        - Quando si combinano tecnologie di visualizzazione diverse in un'applicazione Web, usare { ResourceBundleViewResolver } si rompe!!
+    -->
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <!--     <property  name="prefix" value="/WEB-INF/jsp/" />-->
         <property name="prefix" value="/WEB-INF/jsp/pagine/" />
         <property  name="suffix" value=".jsp" />
            
     </bean>
         
    <!--  **********placeholder 1mo modo **************  -->
-    <!-- <bean id="propertyConfigurer"  -->
+    <!-- <bean id="propertyConfigurer"  
     <bean id="MARCO_PAVON" 
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/hibernate.jdbc.properties" />    
-    
+    -->
     
      <!-- Inserito il 11/05/2018 :  riferitosi al file application.properties - Add driver MySQL
         Getting Database properties, va a prendere le proprieta del file 
@@ -101,5 +125,25 @@
     </beans:bean>
      -->
 
-    
+
+
+<!--aggiunto 17/09/2018 da provare ancora -->
+    <!-- Default bean name is 'mongo' -->
+    <!-- 1 First, we need to define the factory bean responsible for creating Mongo instances. -->
+    <mongo:mongo id="mongo" host="localhost" port="27017" /> 
+    <mongo:db-factory id="mongoDbFactory" dbname="SpringDB" mongo-ref="mongo" />
+
+	
+    <!-- 2 Next – we need to actually define (and configure) the template bean: -->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> 
+        <constructor-arg ref="mongoDbFactory"/> 
+    </bean>
+
+    <!-- 3 And finally we need to define a post processor to translate any MongoExceptions thrown in @Repository 
+    annotated classes: -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+
+
+
 </beans>

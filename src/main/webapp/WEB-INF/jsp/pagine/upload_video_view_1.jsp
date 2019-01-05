@@ -13,7 +13,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <%@ page session="false" %>
 <!DOCTYPE html>
 <html>
@@ -160,7 +160,7 @@
                                 <c:when test="${metadatoFile.getFormato() ne null && metadatoFile.getFormato() ne 'jpg'  }">
                                     <!-- <td><img src="data:image/jpg;base64,<c :out value='$ {image.bytesFile}'/>"    width="120" height="120" /> </td> -->
                                     <td>
-                                        <video width="95" height="95" controls  name="media"   >
+                                        <video width="120" height="120" controls  name="media"   >
                                             <source src="data:video/mp4;base64,<c:out value='${metadatoFile.getDato()}'/>"  
                                                     type="video/mp4" autostart="true"    >
                                             Your browser does not support the <code>video</code> tag.

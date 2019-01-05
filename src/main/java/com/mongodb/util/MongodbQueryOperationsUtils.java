@@ -1921,22 +1921,30 @@ public class MongodbQueryOperationsUtils {
                     }
                 }
                 //raccolta all bytes from al chunks from db
-                byte [] allbytesSingleFile=UtilGridFSDBFile.getAllBytesFromChunksList(listArrBytes).array();
-               /// allbytesSingleFile=UtilGridFSDBFile.compress_(allbytesSingleFile);
-                 StringBuilder sb = new StringBuilder();
-                if(metadatoFiles.getFormato().equalsIgnoreCase("mp4")) {
-                    sb.append("data:video/mp4;base64,");
-                    sb.append(  Base64.encode(allbytesSingleFile) );
+                byte[] allbytesSingleFile = UtilGridFSDBFile.getAllBytesFromChunksList(listArrBytes).array();
+                /// allbytesSingleFile=UtilGridFSDBFile.compress_(allbytesSingleFile);
+                //  StringBuilder sb = new StringBuilder();//buono
+                StringBuffer sbuf = new StringBuffer(); //da provare ancora - StringBuffer che è anche sincronizzato, 
+                                                        //quindi è ideale per gli ambienti multithread. 
+                                                        //Differenza tra StringBuffer e StringBuilder = StringBuffer è sincronizzato, StringBuilder no.
+                                                        //link examples https://code-examples.net/it/q/4fdde3
+                if (metadatoFiles.getFormato().equalsIgnoreCase("mp4")) {
+                    //  sb.append("data:video/mp4;base64,");
+                    //  sb.append(  Base64.encode(allbytesSingleFile) );
+                    sbuf.append("data:video/mp4;base64,");
+                    sbuf.append(Base64.encode(allbytesSingleFile));
+                } else if (metadatoFiles.getFormato().equalsIgnoreCase("jpg")) {
+                    //  sb.append("data:image/jpg;base64,");
+                    //  sb.append(  Base64.encode(allbytesSingleFile) );
+                    sbuf.append("data:image/jpg;base64,");
+                    sbuf.append(Base64.encode(allbytesSingleFile));
+                } else if (metadatoFiles.getFormato().equalsIgnoreCase("png")) {
+                    // sb.append("data:image/png;base64,");
+                    // sb.append(  Base64.encode(allbytesSingleFile) );
+                     sbuf.append("data:image/png;base64,");
+                     sbuf.append(  Base64.encode(allbytesSingleFile) );
                 }
-                else if( metadatoFiles.getFormato().equalsIgnoreCase("jpg")) { 
-                    sb.append("data:image/jpg;base64,");
-                    sb.append(  Base64.encode(allbytesSingleFile) );
-                }
-                else if(metadatoFiles.getFormato().equalsIgnoreCase("png") ) { 
-                    sb.append("data:image/png;base64,");
-                    sb.append(  Base64.encode(allbytesSingleFile) );
-                }
-                
+
                 //System.out.println("\n\nsb.toString()\t= "   + sb.toString() );
                 
                 

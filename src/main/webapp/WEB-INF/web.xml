@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app version="3.1" 
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     
     
     <!-- location of log4j config file SE SI TROVA SUL CLASSPATH ( CIOè SOTTO WEB-INF ) ALLORA NON NECESSARIO
@@ -31,6 +34,9 @@
     <servlet-mapping>
         <servlet-name>dispatcher-mvc</servlet-name>
         <url-pattern>/</url-pattern>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.json</url-pattern>
+        <url-pattern>*.xml</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

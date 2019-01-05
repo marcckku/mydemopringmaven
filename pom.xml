@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                            http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bootstrap</groupId>
@@ -12,36 +15,36 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-          <!-- DOWNLOAD Logging org.slf4j-version 2013 -->
+        <!-- DOWNLOAD Logging org.slf4j-version 2013 -->
         <org.slf4j-version>1.7.5</org.slf4j-version>
+        <spring.version>4.3.5.RELEASE</spring.version><!--my old version -> 4.0.1.RELEASE -->
     </properties>
     
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>     
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>4.0.1.RELEASE</version>
-            
+            <version>${spring.version}</version>
             <exclusions>
                 <!-- Exclude Commons Logging in favor of SLF4j -->
                 <exclusion>
@@ -49,90 +52,106 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
-            
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
-       
+      <!-- il bom si trova nelle versioni vecchie esempio: 4.0.1.RELEASE
           <dependency>
               <groupId>org.springframework</groupId>
               <artifactId>spring-framework-bom</artifactId>
-              <version>4.0.1.RELEASE</version>
+              <version>${spring.version}</version>
           </dependency>
-    
+      -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-instrument</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-instrument-tomcat</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-messaging</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc-portlet</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
-            <version>4.0.1.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
+        <!--{spring-security-web} -> Se hai bisogno dei servizi di autenticazione 
+        web di Spring Security e del controllo degli accessi basato su URL -->
+         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>4.2.8.RELEASE</version>
+        </dependency>
+        <!--{spring-security-config}-> Contiene il codice di analisi dello spazio 
+        dei nomi di sicurezza. Ne hai bisogno se stai utilizzando lo spazio dei nomi 
+        XML Spring Security per la configurazione -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>4.2.8.RELEASE</version>
+        </dependency>
+        <!-- end dependencies spring4 -->
+        
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
@@ -199,10 +218,7 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.4.1.Final</version>
         </dependency>
-
-        
-
-                  
+                         
         <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
         <dependency>
             <groupId>org.mongodb</groupId>
@@ -262,7 +278,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-mongodb</artifactId>
-            <version>1.10.7.RELEASE</version>
+            <version>1.9.5.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -312,7 +328,7 @@
                     <artifactId>jmxri</artifactId>
                 </exclusion>
             </exclusions>
-            <scope>runtime</scope>
+            <type>jar</type>
         </dependency>
         <!-- END Logging SLF4j-->
     </dependencies>
